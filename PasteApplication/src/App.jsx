@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Home from "./Components/Home"
+import Paste from "./Components/Paste"
+import ViewPaste from "./Components/ViewPaste"
+import Navbar from "./Components/Navbar"
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+const router = createBrowserRouter(
+  [
+    {
+      path:"/",
+      element:
+      <div className="w-full h-full flex flex-col">
+        <Navbar/>
+        <Home/>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    },
+    {
+      path:"/pastes",
+      element: <div className="w-full h-full flex flex-col">
+      <Navbar/>
+      <Paste/>
+    </div>
+    },
+    {
+      path:"/pastes/:id",
+      element: <div className="w-full h-full flex flex-col">
+      <Navbar/>
+      <ViewPaste/>
+    </div>,
+    }
+  ]
+)
 
-export default App
+   function App() {
+    return (
+     <RouterProvider router={router} />
+
+   );
+ }
+
+export default App;
+
